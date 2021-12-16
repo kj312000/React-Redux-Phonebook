@@ -14,10 +14,11 @@
 }
 
 .Content{
-    overflow: hidden;
+    overflow: auto;
     padding: 8px;
     flex: 1;
 }
+
 .Main{
     width: 30%;
     height: 95vh;
@@ -26,7 +27,7 @@
 
 @media screen and (max-width: 550px) {
     .Content{
-        overflow: hidden;
+        overflow: auto;
         padding: 8px;
         flex: 1;
     }
@@ -38,7 +39,7 @@
 
 @media only screen and (min-width: 550px ) and ( max-width:900px) {
     .Content{
-        overflow: hidden;
+        overflow: auto;
         padding: 8px;
         flex: 1;
     }
