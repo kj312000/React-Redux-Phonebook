@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import PersonIcon from '@mui/icons-material/Person';
+import Recent from './components/Recent';
+import AllContacts from './components/AllContacts';
+import Favorite from './components/Favorites';
+import { createStore } from 'redux';
+import allReducers from './reducers';
+import { Provider } from 'react-redux';
+import NewContactModal from './components/NewContactModal';
+import './Styles.css'
 
-function App() {
+const store = createStore(allReducers)
+
+export default function App() {
+  const [value, setValue] = React.useState(1);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Provider store={store}>
+      <div className='core'>
+      <div className='Main'>
+      <Box style={{ width: "100%",margin:"auto",border:"1px black solid",display:"flex",flexDirection:"column",height:"95vh"}}>
+        <div className='Header'>
+        {(value===0)&&(<h2>Recents</h2>)}
+        {(value===1)&&(<h2>All Contacts</h2>)}
+        {(value===2)&&(<h2>Favorite</h2>)}
+        </div>
+        
+        <div className='Content'>
+        {(value===0)&&(<Recent/>)}
+        {(value===1)&&(<AllContacts/>)}
+        {(value===2)&&(<Favorite/>)}
+        </div>
+        <BottomNavigation style={{width:"100%",backgroundColor:"grey",paddingLeft:"5px",paddingRight:"5px"}}
+          showLabels
+          value={value}
+          onChange={(event, newValue) => setValue(newValue)}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="All Contacts" icon={<PersonIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <NewContactModal/>
+        </BottomNavigation>
+      </Box>
+      </div>
+      </div>
+    </Provider>
   );
 }
-
-export default App;
